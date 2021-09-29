@@ -21,8 +21,6 @@ class CBR2d(nn.Module):
         if not relu is None:
             layers += [nn.ReLU() if relu == 0.0 else nn.LeakyReLU(relu)]
 
-        cbr = nn.Sequential(*layers)
-
         self.cbr = nn.Sequential(*layers)
 
     def forward(self, x):
