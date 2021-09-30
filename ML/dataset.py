@@ -13,25 +13,21 @@ class Dataset(torch.utils.data.Dataset):
 
         self.transform = transform
 
-        input_dir_lst = os.listdir(self.input_dir)
+        def load_img(path):
+            dir_lst = os.listdir(path)
 
-        input_dir_lst = [f for f in input_dir_lst if f.endswith('jpg') | f.endswith('png')]
-        input_dir_lst.sort()
+            dir_lst = [f for f in dir_lst if f.endswith('jpg') | f.endswith('png')]
+            dir_lst.sort()
 
-        self.input_lst = []
+            img_lst = []
 
-        for i in range(len(input_dir_lst)):
-            self.input_lst.append(plt.imread(os.path.join(self.input_dir, input_dir_lst[i])))
+            for i in range(len(dir_lst)):
+                img_lst.append(plt.imread(os.path.join(path, dir_lst[i])))
 
-        label_dir_lst = os.listdir(self.label_dir)
+            return img_lst
 
-        label_dir_lst = [f for f in label_dir_lst if f.endswith('jpg') | f.endswith('png')]
-        label_dir_lst.sort()
-
-        self.label_lst = []
-
-        for i in range(len(label_dir_lst)):
-            self.label_lst.append(plt.imread(os.path.join(self.label_dir, label_dir_lst[i])))
+        self.input_lst = load_img(input_dir)
+        self.label_lst = load_img(label_dir)
 
     def __len__(self):
         return len(self.input_lst)
