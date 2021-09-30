@@ -32,7 +32,15 @@ class TestModel(unittest.TestCase):
 
         show_tensor_img(img)
         show_tensor_img(out)
-        
+
+
+from torchvision import transforms
+from dataset import Dataset, ToTensor
+
+
+class TestData(unittest.TestCase):
+    def test_dataset(self):
+        dataset = Dataset(input_dir="data/input", label_dir="data/label")
 
 if __name__ == "__main__":
     unittest.main()

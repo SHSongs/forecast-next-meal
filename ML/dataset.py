@@ -33,7 +33,7 @@ class Dataset(torch.utils.data.Dataset):
         return len(self.input_lst)
 
     def __getitem__(self, index):
-        data = {'input': self.input_lst[index], 'label': self.label_dir[index]}
+        data = {'input': self.input_lst[index], 'label': self.label_lst[index]}
 
         if self.transform:
             data = self.transform(data)
