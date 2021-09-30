@@ -40,3 +40,45 @@ class Dataset(torch.utils.data.Dataset):
 
         return data
 
+
+class ToTensor(object):
+    def __call__(self, data):
+        label, input = data['label'], data['input']
+
+        label = label.transpose((2, 0, 1)).astype(np.float32)
+        input = input.transpose((2, 0, 1)).astype(np.float32)
+
+        data = {'label': torch.from_numpy(label), 'input': torch.from_numpy(input)}
+
+        return data
+
+
+class Normalization(object):
+    def __init__(self, mean=0.5, std=0.5):
+        self.mean = mean
+        self.std = std
+
+    def __call__(self, data):
+        label, input = data['label'], data['input']
+
+        label = (label - self.mean) / self.std
+        input = (input - self.mean) / self.std
+
+        data = {'label': label, 'input': input}
+
+        return data
+
+
+class Padding(object):
+    def __init__(self):
+        pass
+    def __call__(self, data):
+        label, input = data['label'], data['input']
+
+        m = nn.ZeroPad2d((0, 0, 10, 0))
+        label = m(label)
+        input = m(input)
+
+        data = {'label': label, 'input': input}
+
+        return data
