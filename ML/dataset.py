@@ -22,7 +22,7 @@ class Dataset(torch.utils.data.Dataset):
             img_lst = []
 
             for i in range(len(dir_lst)):
-                img_lst.append(plt.imread(os.path.join(path, dir_lst[i])))
+                img_lst.append(plt.imread(os.path.join(path, dir_lst[i]))[:,:,:3])
 
             return img_lst
 
@@ -72,6 +72,7 @@ class Normalization(object):
 class Padding(object):
     def __init__(self):
         pass
+
     def __call__(self, data):
         label, input = data['label'], data['input']
 
