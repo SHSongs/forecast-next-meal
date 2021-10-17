@@ -29,6 +29,12 @@ def on_mouse(event, x, y, flags, param):
             cv2.imshow('image', dst)
             oldx, oldy = x, y
 
+        if flags & cv2.EVENT_FLAG_RBUTTON:  # ==를 쓰면 다른 키도 입력되었을 때 작동안하므로 &(and) 사용
+            cv2.line(label, (oldx, oldy), (x, y), (0, 0, 0), brush_size, cv2.LINE_AA)
+            dst = cv2.addWeighted(img, 0.7, label, 0.3, 0)
+            cv2.imshow('image', dst)
+            oldx, oldy = x, y
+
 
 oldx = oldy = -1
 
