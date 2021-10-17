@@ -2,8 +2,10 @@ import numpy as np
 import cv2
 import os
 
-img_path = 'input'
-file_list = os.listdir(img_path)
+IMG_PATH = 'input'
+LABEL_PATH = 'label'
+
+file_list = os.listdir(IMG_PATH)
 img_files = [file for file in file_list if file.endswith('.png')]
 img_files.sort()
 
@@ -34,16 +36,15 @@ brush_size = 10
 
 img_index = 0
 
-
 dst = None
 
-img = cv2.imread(os.path.join(img_path, img_files[img_index]))
+img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
 
 y, x, c = img.shape
 label = np.zeros((y, x, c), dtype=np.uint8)
 
 cv2.namedWindow('image', cv2.WINDOW_NORMAL)  # 창 크기 수동 조절
-cv2.moveWindow(winname='image', x=50,y=50)
+cv2.moveWindow(winname='image', x=50, y=50)
 
 cv2.setMouseCallback('image', on_mouse, img)
 cv2.imshow('image', img)
@@ -51,6 +52,19 @@ cv2.imshow('image', img)
 cv2.resizeWindow(winname='image', width=1000, height=1000)
 
 show_label = False
+
+
+def next_img():
+    global label
+    global img
+
+    img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
+    cv2.imshow('image', img)
+    y, x, c = img.shape
+    cv2.imwrite(os.path.join(LABEL_PATH, img_files[img_index]), label)
+
+    label = np.zeros((y, x, c), dtype=np.uint8)
+
 
 while True:
     key = cv2.waitKey()
@@ -69,21 +83,14 @@ while True:
         break
 
     print(key)
-    if key == 3:  # left arrow
-        img_index -= 1
-        img = cv2.imread(os.path.join(img_path, img_files[img_index]))
-        cv2.imshow('image', img)
-        print('left')
-        y, x, c = img.shape
-        label = np.zeros((y, x, c), dtype=np.uint8)
-
-    elif key == 2:  # right arrow
-        img_index += 1
-        img = cv2.imread(os.path.join(img_path, img_files[img_index]))
-        cv2.imshow('image', img)
+    if key == 3:  # right arrow
         print('right')
-        y, x, c = img.shape
-        label = np.zeros((y, x, c), dtype=np.uint8)
+        img_index -= 1
+        next_img()
 
+    elif key == 2:  # left arrow
+        print('left')
+        img_index += 1
+        next_img()
 
 cv2.destroyAllWindows()
