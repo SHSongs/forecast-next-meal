@@ -18,10 +18,9 @@ def on_mouse(event, x, y, flags, param):
 
     if event == cv2.EVENT_LBUTTONDOWN:
         oldx, oldy = x, y
-        print('EVENT_LBUTTONDOWN: %d, %d' % (x, y))  # 좌표 출력
 
-    elif event == cv2.EVENT_LBUTTONUP:
-        print('EVENT_LBUTTONUP: %d, %d' % (x, y))  # 좌표 출력
+    elif event == cv2.EVENT_RBUTTONDOWN:
+        oldx, oldy = x, y
 
     elif event == cv2.EVENT_MOUSEMOVE:
         if flags & cv2.EVENT_FLAG_LBUTTON:  # ==를 쓰면 다른 키도 입력되었을 때 작동안하므로 &(and) 사용
