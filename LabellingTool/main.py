@@ -68,9 +68,8 @@ while True:
     elif key == 27:  # esc
         break
 
-    keyEx = cv2.waitKeyEx()
-    print(keyEx)
-    if keyEx == 63235:  # left arrow
+    print(key)
+    if key == 3:  # left arrow
         img_index -= 1
         img = cv2.imread(os.path.join(img_path, img_files[img_index]))
         cv2.imshow('image', img)
@@ -78,7 +77,7 @@ while True:
         y, x, c = img.shape
         label = np.zeros((y, x, c), dtype=np.uint8)
 
-    elif keyEx == 63234:  # right arrow
+    elif key == 2:  # right arrow
         img_index += 1
         img = cv2.imread(os.path.join(img_path, img_files[img_index]))
         cv2.imshow('image', img)
