@@ -1,14 +1,11 @@
 import numpy as np
 import cv2
 
-oldx = oldy = -1
-
-brush_size = 10
-
 
 def on_mouse(event, x, y, flags, param):
     global oldx, oldy
     global brush_size
+    global dst
 
     if event == cv2.EVENT_LBUTTONDOWN:
         oldx, oldy = x, y
@@ -25,25 +22,36 @@ def on_mouse(event, x, y, flags, param):
             oldx, oldy = x, y
 
 
+oldx = oldy = -1
+
+brush_size = 10
+
 img = cv2.imread("20210991.png")
+dst = None
 
 y, x, c = img.shape
-label = np.ones((y, x, c), dtype=np.uint8) * 0
+label = np.zeros((y, x, c), dtype=np.uint8)
 
 cv2.namedWindow('image')
 cv2.setMouseCallback('image', on_mouse, img)
-
-
 cv2.imshow('image', img)
 
-while True:
 
+show_label = False
+
+while True:
     key = cv2.waitKey()
 
     if key == ord('1'):
         brush_size -= 1
     elif key == ord('2'):
         brush_size += 1
+    elif key == ord('l'):
+        if show_label:
+            cv2.imshow('image', label)
+        else:
+            cv2.imshow('image', dst)
+        show_label = not show_label
     elif key == 27:  # esc
         break
 
