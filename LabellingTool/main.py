@@ -10,6 +10,7 @@ img_files = [file for file in file_list if file.endswith('.png')]
 img_files.sort()
 print(img_files)
 
+
 def on_mouse(event, x, y, flags, param):
     global oldx, oldy
     global brush_size
@@ -74,7 +75,12 @@ def next_img(n):
     cv2.imshow('image', img)
     y, x, c = img.shape
 
-    label = np.zeros((y, x, c), dtype=np.uint8)
+    if os.path.isfile(os.path.join(LABEL_PATH, img_files[img_index])):  # label file 존재시 label 불옴옴
+        label = cv2.imread(os.path.join(LABEL_PATH, img_files[img_index]))
+        dst = cv2.addWeighted(img, 0.7, label, 0.3, 0)
+        cv2.imshow('image', dst)
+    else:
+        label = np.zeros((y, x, c), dtype=np.uint8)
 
 
 while True:
