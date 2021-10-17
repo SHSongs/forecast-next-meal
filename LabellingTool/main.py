@@ -8,7 +8,7 @@ LABEL_PATH = 'label'
 file_list = os.listdir(IMG_PATH)
 img_files = [file for file in file_list if file.endswith('.png')]
 img_files.sort()
-
+print(img_files)
 
 def on_mouse(event, x, y, flags, param):
     global oldx, oldy
@@ -60,14 +60,19 @@ cv2.resizeWindow(winname='image', width=1000, height=1000)
 show_label = False
 
 
-def next_img():
+def next_img(n):
     global label
     global img
+    global img_index
+
+    print(img_files[img_index])
+    cv2.imwrite(os.path.join(LABEL_PATH, img_files[img_index]), label)
+
+    img_index += n
 
     img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
     cv2.imshow('image', img)
     y, x, c = img.shape
-    cv2.imwrite(os.path.join(LABEL_PATH, img_files[img_index]), label)
 
     label = np.zeros((y, x, c), dtype=np.uint8)
 
@@ -91,12 +96,10 @@ while True:
     print(key)
     if key == 3:  # right arrow
         print('right')
-        img_index -= 1
-        next_img()
+        next_img(1)
 
     elif key == 2:  # left arrow
         print('left')
-        img_index += 1
-        next_img()
+        next_img(-1)
 
 cv2.destroyAllWindows()
