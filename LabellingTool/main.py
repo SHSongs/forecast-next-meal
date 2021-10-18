@@ -43,14 +43,15 @@ brush_size = 10
 
 img_index = 0
 
-dst = None
 
 img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
 img = crop_img(img)
 
 y, x, c = img.shape
 
-label = np.zeros((y, x, c), dtype=np.uint8)
+
+label, dst = load_label(img, img_files[img_index])
+cv2.imshow('image', dst)
 
 setup_cv(img, on_mouse=on_mouse)
 
