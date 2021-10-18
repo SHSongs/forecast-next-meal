@@ -44,18 +44,27 @@ img_index = 0
 
 dst = None
 
+
+def crab_img(img):
+    y, x, c = img.shape
+
+    left_x = int((x - 200) / 2)
+    up_y = int((y - 150) / 2)
+
+    img = img[up_y:up_y + 150, left_x:left_x + 200]
+
+    y, x, c = img.shape
+
+    print(x, y)
+    assert x == 200 and y == 150
+
+    return img
+
+
 img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
-y, x, c = img.shape
-
-left_x = int((x - 200) / 2)
-up_y = int((y - 150) / 2)
-
-img = img[up_y:up_y + 150, left_x:left_x + 200]
+img = crab_img(img)
 
 y, x, c = img.shape
-
-print(x, y)
-assert x == 200 and y == 150
 
 label = np.zeros((y, x, c), dtype=np.uint8)
 
@@ -77,6 +86,7 @@ def next_img(n):
 
     print(img_files[img_index])
     cv2.imwrite(os.path.join(LABEL_PATH, img_files[img_index]), label)
+    img = crab_img(img)
 
     img_index += n
 
