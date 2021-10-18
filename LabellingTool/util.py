@@ -1,3 +1,13 @@
+import os
+from config import IMG_PATH
+
+
+def load_img_files():
+    file_list = os.listdir(IMG_PATH)
+    img_files = [file for file in file_list if file.endswith('.png')]
+    img_files.sort()
+    print(img_files)
+    return img_files
 
 
 def crop_img(img):

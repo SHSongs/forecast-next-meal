@@ -2,17 +2,14 @@ import numpy as np
 import cv2
 import os
 
-from util import crop_img
+from util import crop_img, load_img_files
 from cv_util import setup_cv, load_label
 
 from config import *
 
 color_idx = 0
 
-file_list = os.listdir(IMG_PATH)
-img_files = [file for file in file_list if file.endswith('.png')]
-img_files.sort()
-print(img_files)
+img_files = load_img_files()
 
 
 def on_mouse(event, x, y, flags, param):
@@ -57,8 +54,6 @@ y, x, c = img.shape
 label = np.zeros((y, x, c), dtype=np.uint8)
 
 setup_cv(img, on_mouse=on_mouse)
-
-
 
 
 def next_img(n):
