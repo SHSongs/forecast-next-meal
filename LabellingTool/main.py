@@ -71,7 +71,6 @@ def next_img(n):
     img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
     img = crop_img(img)
 
-    cv2.imshow('image', img)
 
     label, dst = load_label(img, img_files[img_index])
     cv2.imshow('image', dst)
