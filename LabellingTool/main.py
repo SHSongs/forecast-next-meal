@@ -86,11 +86,12 @@ def next_img(n):
 
     print(img_files[img_index])
     cv2.imwrite(os.path.join(LABEL_PATH, img_files[img_index]), label)
-    img = crab_img(img)
 
     img_index += n
 
     img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
+    img = crab_img(img)
+
     cv2.imshow('image', img)
     y, x, c = img.shape
 
