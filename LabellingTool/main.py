@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import os
 
-from util import crop_img, load_img_files
+from util import crop_img, load_img_files, clamp
 from cv_util import setup_cv, load_label
 
 from config import *
@@ -43,12 +43,10 @@ brush_size = 10
 
 img_index = 0
 
-
 img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
 img = crop_img(img)
 
 y, x, c = img.shape
-
 
 label, dst = load_label(img, img_files[img_index])
 cv2.imshow('image', dst)
@@ -67,10 +65,10 @@ def next_img(n):
     cv2.imwrite(os.path.join(LABEL_PATH, img_files[img_index]), label)
 
     img_index += n
+    img_index = clamp(img_index, 0, len(img_files) - 1)
 
     img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
     img = crop_img(img)
-
 
     label, dst = load_label(img, img_files[img_index])
     cv2.imshow('image', dst)

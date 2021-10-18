@@ -24,3 +24,7 @@ def crop_img(img):
     assert x == 200 and y == 150
 
     return img
+
+
+def clamp(n, smallest, largest):
+    return max(smallest, min(n, largest))
