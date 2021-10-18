@@ -5,6 +5,10 @@ import os
 IMG_PATH = 'input'
 LABEL_PATH = 'label'
 
+COLOR_LIST = [(0, 0, 255), (0, 255, 0), (0, 255, 255), (255, 0, 0), (255,  0, 255), (255, 255, 255)]
+
+color_idx = 0
+
 file_list = os.listdir(IMG_PATH)
 img_files = [file for file in file_list if file.endswith('.png')]
 img_files.sort()
@@ -24,7 +28,8 @@ def on_mouse(event, x, y, flags, param):
 
     elif event == cv2.EVENT_MOUSEMOVE:
         if flags & cv2.EVENT_FLAG_LBUTTON:  # ==를 쓰면 다른 키도 입력되었을 때 작동안하므로 &(and) 사용
-            cv2.line(label, (oldx, oldy), (x, y), (0, 0, 255), brush_size, cv2.LINE_AA)
+
+            cv2.line(label, (oldx, oldy), (x, y), COLOR_LIST[color_idx], brush_size, cv2.LINE_AA)
             dst = cv2.addWeighted(img, 0.7, label, 0.3, 0)
             cv2.imshow('image', dst)
             oldx, oldy = x, y
@@ -116,6 +121,23 @@ while True:
         else:
             cv2.imshow('image', dst)
         show_label = not show_label
+    elif key == ord('z'):  # 밥
+        color_idx = 0
+        pass
+    elif key == ord('x'):  # 국
+        color_idx = 1
+        pass
+    elif key == ord('a'):  # 왼쪽 반찬
+        color_idx = 2
+        pass
+    elif key == ord('r'):  # 중앙 반찬
+        color_idx = 3
+        pass
+    elif key == ord('s'):  # 오른쪽 반찬
+        color_idx = 4
+        pass
+    elif key == ord('t'):  # 특수반찬
+        color_idx = 5
     elif key == 27:  # esc
         break
 
