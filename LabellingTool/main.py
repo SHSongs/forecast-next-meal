@@ -7,10 +7,6 @@ from cv_util import setup_cv, load_label
 
 from config import *
 
-color_idx = 0
-
-img_files = load_img_files()
-
 
 def on_mouse(event, x, y, flags, param):
     global oldx, oldy
@@ -38,6 +34,9 @@ def on_mouse(event, x, y, flags, param):
             oldx, oldy = x, y
 
 
+color_idx = 0
+img_files = load_img_files()
+
 oldx = oldy = -1
 
 brush_size = 10
@@ -54,6 +53,8 @@ y, x, c = img.shape
 label = np.zeros((y, x, c), dtype=np.uint8)
 
 setup_cv(img, on_mouse=on_mouse)
+
+show_label = False
 
 
 def next_img(n):
@@ -74,8 +75,6 @@ def next_img(n):
     label, dst = load_label(img, img_files[img_index])
     cv2.imshow('image', dst)
 
-
-show_label = False
 
 while True:
     key = cv2.waitKey()
