@@ -45,8 +45,18 @@ img_index = 0
 dst = None
 
 img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
+y, x, c = img.shape
+
+left_x = int((x - 200) / 2)
+up_y = int((y - 150) / 2)
+
+img = img[up_y:up_y + 150, left_x:left_x + 200]
 
 y, x, c = img.shape
+
+print(x, y)
+assert x == 200 and y == 150
+
 label = np.zeros((y, x, c), dtype=np.uint8)
 
 cv2.namedWindow('image', cv2.WINDOW_NORMAL)  # 창 크기 수동 조절
