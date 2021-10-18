@@ -8,7 +8,6 @@ def setup_cv(img, on_mouse):
     cv2.moveWindow(winname='image', x=50, y=50)
 
     cv2.setMouseCallback('image', on_mouse, img)
-    cv2.imshow('image', img)
 
     cv2.resizeWindow(winname='image', width=1000, height=1000)
 
