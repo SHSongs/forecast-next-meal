@@ -24,6 +24,8 @@ def on_mouse(event, x, y, flags, param):
 
             cv2.line(label, (oldx, oldy), (x, y), COLOR_LIST[color_idx], brush_size, cv2.LINE_AA)
             dst = cv2.addWeighted(img, 0.7, label, 0.3, 0)
+
+            cv2.line(dst, (x, y), (x, y), COLOR_LIST[color_idx], brush_size, cv2.LINE_4)
             cv2.imshow('image', dst)
             oldx, oldy = x, y
 
