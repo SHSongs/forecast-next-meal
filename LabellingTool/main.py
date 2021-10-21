@@ -4,13 +4,23 @@ import os
 from util import crop_img, load_img_files, clamp
 from cv_util import setup_cv, load_label
 
+from PIL import ImageFont, ImageDraw, Image
+import cv2
+import numpy as np
+import cv2
+import numpy as np
+from PIL import ImageFont, ImageDraw, Image
+
 from config import *
+
+font = ImageFont.truetype("fonts/NanumGothic.ttf", 40)
 
 
 def on_mouse(event, x, y, flags, param):
     global oldx, oldy
     global brush_size
     global dst
+    global font
 
     if event == cv2.EVENT_LBUTTONDOWN:
         oldx, oldy = x, y
@@ -20,19 +30,22 @@ def on_mouse(event, x, y, flags, param):
 
     elif event == cv2.EVENT_MOUSEMOVE:
         if flags & cv2.EVENT_FLAG_LBUTTON:  # ==를 쓰면 다른 키도 입력되었을 때 작동안하므로 &(and) 사용
-
             cv2.line(label, (oldx, oldy), (x, y), COLOR_LIST[color_idx], brush_size, cv2.LINE_AA)
-            dst = cv2.addWeighted(img, 0.7, label, 0.3, 0)
-
+            dst = cv2.addWeighted(img, 0.4, label, 0.6, 0)
             cv2.line(dst, (x, y), (x, y), COLOR_LIST[color_idx], brush_size, cv2.LINE_4)
-            cv2.imshow('image', dst)
-            oldx, oldy = x, y
 
         if flags & cv2.EVENT_FLAG_RBUTTON:  # ==를 쓰면 다른 키도 입력되었을 때 작동안하므로 &(and) 사용
             cv2.line(label, (oldx, oldy), (x, y), (0, 0, 0), brush_size, cv2.LINE_AA)
-            dst = cv2.addWeighted(img, 0.4, label, 0.6, 0)
-            cv2.imshow('image', dst)
-            oldx, oldy = x, y
+            dst = cv2.addWeighted(img, 0.5, label, 0.5, 0)
+
+        dst = Image.fromarray(dst)
+        draw = ImageDraw.Draw(dst)
+        text = CLASS_LIST[color_idx]
+        org = (50, 50)
+        draw.text(org, text, font=font, fill=(255, 255, 255))
+        dst = np.array(dst)
+        cv2.imshow('image', dst)
+        oldx, oldy = x, y
 
 
 color_idx = 0
