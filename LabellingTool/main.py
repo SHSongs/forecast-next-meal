@@ -98,13 +98,13 @@ while True:
     elif key == ord('a'):  # 왼쪽 반찬
         color_idx = 2
         pass
-    elif key == ord('r'):  # 중앙 반찬
+    elif key == ord('s'):  # 중앙 반찬
         color_idx = 3
         pass
-    elif key == ord('s'):  # 오른쪽 반찬
+    elif key == ord('d'):  # 오른쪽 반찬
         color_idx = 4
         pass
-    elif key == ord('t'):  # 특수반찬
+    elif key == ord('f'):  # 특수반찬
         color_idx = 5
     elif key == 27:  # esc
         break
