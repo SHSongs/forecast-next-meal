@@ -3,6 +3,7 @@ import os
 import numpy as np
 from config import *
 
+
 def setup_cv(img, on_mouse):
     cv2.namedWindow('image', cv2.WINDOW_NORMAL)  # 창 크기 수동 조절
     cv2.moveWindow(winname='image', x=50, y=50)
@@ -10,7 +11,6 @@ def setup_cv(img, on_mouse):
     cv2.setMouseCallback('image', on_mouse, img)
 
     cv2.resizeWindow(winname='image', width=1000, height=1000)
-
 
 
 def load_label(img, img_file_name):
