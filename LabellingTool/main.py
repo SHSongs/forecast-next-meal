@@ -40,7 +40,8 @@ img_files = load_img_files()
 
 oldx = oldy = -1
 
-brush_size = 10
+brush_size = 100
+brush_size_control_ratio = 10
 
 img_index = 0
 
@@ -84,9 +85,9 @@ while True:
     key = cv2.waitKey()
 
     if key == ord('1'):
-        brush_size -= 1
+        brush_size -= brush_size_control_ratio
     elif key == ord('2'):
-        brush_size += 1
+        brush_size += brush_size_control_ratio
     elif key == ord('l'):
         if show_label:
             cv2.imshow('image', label)
