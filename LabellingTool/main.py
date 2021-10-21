@@ -4,9 +4,6 @@ import os
 from util import crop_img, load_img_files, clamp
 from cv_util import setup_cv, load_label
 
-from PIL import ImageFont, ImageDraw, Image
-import cv2
-import numpy as np
 import cv2
 import numpy as np
 from PIL import ImageFont, ImageDraw, Image
