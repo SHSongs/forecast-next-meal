@@ -1,4 +1,3 @@
-import numpy as np
 import cv2
 import os
 
@@ -47,10 +46,12 @@ img_index = 0
 
 img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
 img = crop_img(img)
+img = cv2.resize(img, dsize=(200 * 5, 150 * 5), interpolation=cv2.INTER_AREA)
 
 y, x, c = img.shape
 
 label, dst = load_label(img, img_files[img_index])
+
 cv2.imshow('image', dst)
 
 setup_cv(img, on_mouse=on_mouse)
@@ -64,6 +65,8 @@ def next_img(n):
     global img_index
 
     print(img_files[img_index])
+
+    label = cv2.resize(label, dsize=(200, 150), interpolation=cv2.INTER_AREA)
     cv2.imwrite(os.path.join(LABEL_PATH, img_files[img_index]), label)
 
     img_index += n
@@ -71,6 +74,7 @@ def next_img(n):
 
     img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
     img = crop_img(img)
+    img = cv2.resize(img, dsize=(200 * 5, 150 * 5), interpolation=cv2.INTER_AREA)
 
     label, dst = load_label(img, img_files[img_index])
     cv2.imshow('image', dst)
