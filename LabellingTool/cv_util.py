@@ -21,6 +21,6 @@ def load_label(img, img_file_name):
 
     label = cv2.resize(label, dsize=(200 * 5, 150 * 5), interpolation=cv2.INTER_AREA)
 
-    dst = cv2.addWeighted(img, 0.7, label, 0.3, 0)
+    dst = cv2.addWeighted(img, 0.3, label, 0.7, 0)
 
     return label, dst

@@ -30,7 +30,7 @@ def on_mouse(event, x, y, flags, param):
 
         if flags & cv2.EVENT_FLAG_RBUTTON:  # ==를 쓰면 다른 키도 입력되었을 때 작동안하므로 &(and) 사용
             cv2.line(label, (oldx, oldy), (x, y), (0, 0, 0), brush_size, cv2.LINE_AA)
-            dst = cv2.addWeighted(img, 0.7, label, 0.3, 0)
+            dst = cv2.addWeighted(img, 0.4, label, 0.6, 0)
             cv2.imshow('image', dst)
             oldx, oldy = x, y
 
@@ -97,20 +97,27 @@ while True:
     elif key == ord('z'):  # 밥
         color_idx = 0
         pass
-    elif key == ord('x'):  # 국
+    elif key == ord('x'):  # 중앙 부식 (보통 우유)
         color_idx = 1
         pass
-    elif key == ord('a'):  # 왼쪽 반찬
+    elif key == ord('c'):  # 국
         color_idx = 2
         pass
-    elif key == ord('s'):  # 중앙 반찬
+    elif key == ord('a'):  # 왼쪽 반찬
         color_idx = 3
         pass
-    elif key == ord('d'):  # 오른쪽 반찬
+    elif key == ord('s'):  # 중앙 반찬 (윈쪽)
         color_idx = 4
         pass
-    elif key == ord('f'):  # 특수반찬
+    elif key == ord('d'):  # 중앙 반찬 (오른쪽)
         color_idx = 5
+        pass
+    elif key == ord('f'):  # 오른쪽 반찬
+        color_idx = 6
+        pass
+    elif key == ord('g'):  # 식판에 걸쳐있는 부식
+        color_idx = 7
+        pass
     elif key == 27:  # esc
         break
 
