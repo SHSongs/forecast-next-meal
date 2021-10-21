@@ -10,8 +10,6 @@ def setup_cv(img, on_mouse):
 
     cv2.setMouseCallback('image', on_mouse, img)
 
-    cv2.resizeWindow(winname='image', width=1000, height=1000)
-
 
 def load_label(img, img_file_name):
     y, x, c = img.shape
@@ -19,8 +17,10 @@ def load_label(img, img_file_name):
     if os.path.isfile(os.path.join(LABEL_PATH, img_file_name)):  # label file 존재시 label 불옴옴
         label = cv2.imread(os.path.join(LABEL_PATH, img_file_name))
     else:
-        label = np.zeros((y, x, c), dtype=np.uint8)
+        label = np.zeros((150, 200, c), dtype=np.uint8)
 
-    dst = cv2.addWeighted(img, 0.7, label, 0.3, 0)
+    label = cv2.resize(label, dsize=(200 * 5, 150 * 5), interpolation=cv2.INTER_AREA)
+
+    dst = cv2.addWeighted(img, 0.3, label, 0.7, 0)
 
     return label, dst
