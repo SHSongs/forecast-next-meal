@@ -16,7 +16,7 @@ font = ImageFont.truetype("fonts/NanumGothic.ttf", 40)
 def on_mouse(event, x, y, flags, param):
     global oldx, oldy
     global brush_size
-    global dst
+    global dst, img, label
     global font
 
     if event == cv2.EVENT_LBUTTONDOWN:
@@ -73,15 +73,15 @@ show_label = False
 def next_img(n):
     global label
     global img
+    global dst
     global img_index
-
-    print(img_files[img_index])
 
     label = cv2.resize(label, dsize=(200, 150), interpolation=cv2.INTER_AREA)
     cv2.imwrite(os.path.join(LABEL_PATH, img_files[img_index]), label)
 
     img_index += n
     img_index = clamp(img_index, 0, len(img_files) - 1)
+    print(img_files[img_index])
 
     img = cv2.imread(os.path.join(IMG_PATH, img_files[img_index]))
     img = crop_img(img)
@@ -132,11 +132,11 @@ while True:
         break
 
     print(key)
-    if key == 3:  # right arrow
+    if key == ord('m'):  # right arrow
         print('right')
         next_img(1)
 
-    elif key == 2:  # left arrow
+    elif key == ord('n'):  # left arrow
         print('left')
         next_img(-1)
 
